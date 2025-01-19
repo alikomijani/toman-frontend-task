@@ -12,7 +12,7 @@ const rtlCache = createCache({
 });
 export default function ThemeProvider({ children }: PropsWithChildren) {
   return (
-    <MuiThemeProvider theme={theme} noSsr defaultMode="light">
+    <MuiThemeProvider theme={theme}>
       <CacheProvider value={rtlCache}>
         <CssBaseline />
         {children}
