@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router";
 import { WithSuspense } from "./components/WithSuspense";
 
 const Payments = WithSuspense(
@@ -12,12 +12,14 @@ const Home = WithSuspense(React.lazy(() => import("./pages/Home")));
 
 export default function AppRoutes() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="payments">
-        <Route index element={<Payments />} />
-        <Route path=":id" element={<PaymentView />} />
-      </Route>
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="payments">
+          <Route index element={<Payments />} />
+          <Route path=":id" element={<PaymentView />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
