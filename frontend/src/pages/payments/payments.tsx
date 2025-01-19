@@ -1,4 +1,3 @@
-type Props = {};
 import { useGetPaymentsList } from "@/api/payment.api";
 import {
   Box,
@@ -28,15 +27,16 @@ import {
   STATUS_ICON_MAP,
   STATUS_TYPE_TRANSLATE_MAP,
 } from "./constants";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { PaymentParams, PaymentStatus, PaymentTypes } from "@/api/types";
 import { TableLoading } from "@/components/TableLoading";
 import SearchIcon from "@mui/icons-material/Search";
 import { useDebounce } from "@uidotdev/usehooks";
 import FilterIcon from "@/components/FilterIcon";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
-import { Link } from "react-router";
-function Payments({}: Props) {
+import { Link, useLocation, useNavigate } from "react-router";
+function Payments() {
+  const location = useLocation();
   const [params, setParams] = useState<PaymentParams>({
     page: 1,
     limit: 10,
@@ -59,12 +59,46 @@ function Payments({}: Props) {
     setParams((prev) => ({ ...prev, limit }));
   };
   const handleSearchParams = (e: ChangeEvent<HTMLInputElement>) => {
-    setParams((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setParams((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+      page: 1,
+    }));
   };
   const hasFilter = params.search || params.type || params.status;
   const clearFilter = () => {
-    setParams((prev) => ({ ...prev, search: "", type: "", status: "" }));
+    setParams({
+      page: 1,
+      limit: 10,
+      search: "",
+      type: "",
+      status: "",
+    });
   };
+  const nav = useNavigate();
+  useEffect(() => {
+    const searchParams = new URLSearchParams(
+      params as unknown as URLSearchParams
+    );
+    nav(location.pathname + "?" + searchParams.toString());
+  }, [params]);
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const [search, type, status, page, limit] = [
+      searchParams.get("search"),
+      searchParams.get("type"),
+      searchParams.get("status"),
+      searchParams.get("page"),
+      searchParams.get("limit"),
+    ];
+    setParams({
+      search: search ?? "",
+      type: (type ?? "") as PaymentTypes,
+      status: (status ?? "") as PaymentStatus,
+      page: parseInt(page ?? "1"),
+      limit: parseInt(limit ?? "10"),
+    });
+  }, [location.search]);
   return (
     <Box>
       <Box p={1}>
@@ -121,10 +155,12 @@ function Payments({}: Props) {
                           label="نوع پرداخت"
                           sx={{ width: 200 }}
                         >
-                          <MenuItem value="">پاک کردن فیلتر</MenuItem>
+                          <MenuItem key={0} value="">
+                            پاک کردن فیلتر
+                          </MenuItem>
                           {Object.keys(PAYMENT_TYPE_TRANSLATE_MAP).map(
                             (key) => (
-                              <MenuItem value={key}>
+                              <MenuItem key={key} value={key}>
                                 {
                                   PAYMENT_TYPE_TRANSLATE_MAP[
                                     key as PaymentTypes
@@ -149,9 +185,11 @@ function Payments({}: Props) {
                           sx={{ width: 200 }}
                           label="وضعیت"
                         >
-                          <MenuItem value="">پاک کردن فیلتر</MenuItem>
+                          <MenuItem key={1} value="">
+                            پاک کردن فیلتر
+                          </MenuItem>
                           {Object.keys(STATUS_TYPE_TRANSLATE_MAP).map((key) => (
-                            <MenuItem value={key}>
+                            <MenuItem key={key} value={key}>
                               {STATUS_TYPE_TRANSLATE_MAP[key as PaymentStatus]}
                             </MenuItem>
                           ))}
@@ -166,7 +204,7 @@ function Payments({}: Props) {
               </TableHead>
               <TableBody>
                 {isLoading && (
-                  <TableLoading rows={params.limit || 10} cells={6} />
+                  <TableLoading rows={params.limit || 10} cells={7} />
                 )}
                 {data?.entities.map((payment) => (
                   <TableRow
