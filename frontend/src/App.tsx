@@ -1,14 +1,20 @@
-import AppRoutes from "./routes";
+import { lazy, Suspense } from "react";
 import ThemeProvider from "./theme/theme-provider";
-import "@fontsource/vazirmatn/300.css"; // Specify weight
-import "@fontsource/vazirmatn/400.css"; // Specify weight
-import "@fontsource/vazirmatn/500.css"; // Specify weight
-import "@fontsource/vazirmatn/700.css"; // Specify weight
-
+import "@fontsource/vazirmatn/arabic-300.css";
+import "@fontsource/vazirmatn/arabic-400.css";
+import "@fontsource/vazirmatn/arabic-500.css";
+import "@fontsource/vazirmatn/arabic-700.css";
+import { QueryClient, QueryClientProvider } from "react-query";
+const AppRoutes = lazy(() => import("./routes"));
+const queryClient = new QueryClient();
 function App() {
   return (
     <ThemeProvider>
-      <AppRoutes />
+      <QueryClientProvider client={queryClient}>
+        <Suspense fallback="درحال بارگزاری">
+          <AppRoutes />
+        </Suspense>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }
