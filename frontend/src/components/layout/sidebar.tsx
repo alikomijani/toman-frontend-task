@@ -9,10 +9,11 @@ import {
   ListItemText,
   Toolbar,
 } from "@mui/material";
-import MailIcon from "@mui/icons-material/Mail";
-import InboxIcon from "@mui/icons-material/Inbox";
 
+import { Link, useLocation } from "react-router";
+import { SIDE_ITEMS } from "./constants";
 const drawerWidth = 240;
+
 type Props = {
   mobileOpen: boolean;
   handleDrawerTransitionEnd: () => void;
@@ -24,16 +25,21 @@ export default function Sidebar({
   handleDrawerTransitionEnd,
   handleDrawerClose,
 }: Props) {
+  const location = useLocation();
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
-        {["پرداخت"].map((text, index) => (
+        {SIDE_ITEMS.map(({ text, href, Icon }) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton
+              selected={location.pathname === href}
+              component={Link}
+              to={href}
+            >
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <Icon />
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -50,14 +56,13 @@ export default function Sidebar({
       sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
       aria-label="mailbox folders"
     >
-      {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
       <Drawer
         variant="temporary"
         open={mobileOpen}
         onTransitionEnd={handleDrawerTransitionEnd}
         onClose={handleDrawerClose}
         ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
+          keepMounted: true,
         }}
         sx={{
           display: { xs: "block", md: "none" },

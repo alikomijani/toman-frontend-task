@@ -22,7 +22,7 @@ const STATUS_ICON_MAP: Record<PaymentStatus, ReactElement> = {
     </Tooltip>
   ),
 } as const;
-export const STATUS_TYPE_TRANSLATE_MAP: Record<PaymentStatus, string> = {
+const STATUS_TYPE_TRANSLATE_MAP: Record<PaymentStatus, string> = {
   failed: "خطا",
   success: "موفق",
   pending: "درحال انجام",
@@ -35,4 +35,8 @@ const PAYMENT_TYPE_TRANSLATE_MAP: Record<PaymentTypes, string> = {
   transportation: "هزینه جابه‌جایی",
 } as const;
 
-export { STATUS_ICON_MAP, PAYMENT_TYPE_TRANSLATE_MAP };
+export {
+  STATUS_ICON_MAP,
+  PAYMENT_TYPE_TRANSLATE_MAP,
+  STATUS_TYPE_TRANSLATE_MAP,
+};
