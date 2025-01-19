@@ -25,11 +25,11 @@ export interface PaginatedServerApi<T> {
   total: number;
 }
 export interface PaginationParams {
-  page?: number;
-  limit?: number;
+  page: number;
+  limit: number;
 }
 export interface PaymentParams extends PaginationParams {
-  search?: string;
-  type?: PaymentTypes;
-  status?: PaymentStatus;
+  search: string;
+  type: PaymentTypes | "";
+  status: PaymentStatus | "";
 }

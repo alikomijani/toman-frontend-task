@@ -6,7 +6,13 @@ import "@fontsource/vazirmatn/arabic-500.css";
 import "@fontsource/vazirmatn/arabic-700.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 const AppRoutes = lazy(() => import("./routes"));
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+    },
+  },
+});
 function App() {
   return (
     <ThemeProvider>

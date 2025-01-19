@@ -4,13 +4,13 @@ import { PaginatedServerApi, Payment, PaymentParams } from "./types";
 import { useQuery } from "react-query";
 
 async function getPaymentsList(config?: AxiosRequestConfig) {
-  const data = await api.get<PaginatedServerApi<Payment>>("/payments", config);
-  return data;
+  const res = await api.get<PaginatedServerApi<Payment>>("/payments", config);
+  return res.data;
 }
 
 async function getPaymentById(id: string, config?: AxiosRequestConfig) {
-  const data = await api.get<Payment>("/payments/" + id, config);
-  return data;
+  const res = await api.get<Payment>("/payments/" + id, config);
+  return res.data;
 }
 export function useGetPaymentsList(params: PaymentParams) {
   return useQuery({
