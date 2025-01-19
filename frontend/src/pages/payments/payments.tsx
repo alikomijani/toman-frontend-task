@@ -27,23 +27,17 @@ import {
   STATUS_ICON_MAP,
   STATUS_TYPE_TRANSLATE_MAP,
 } from "./constants";
-import { ChangeEvent, useEffect, useState } from "react";
-import { PaymentParams, PaymentStatus, PaymentTypes } from "@/api/types";
+import { ChangeEvent } from "react";
+import { PaymentStatus, PaymentTypes } from "@/api/types";
 import { TableLoading } from "@/components/TableLoading";
 import SearchIcon from "@mui/icons-material/Search";
 import { useDebounce } from "@uidotdev/usehooks";
 import FilterIcon from "@/components/FilterIcon";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link } from "react-router";
+import { usePaymentParams } from "./usePaymentParams";
 function Payments() {
-  const location = useLocation();
-  const [params, setParams] = useState<PaymentParams>({
-    page: 1,
-    limit: 10,
-    search: "",
-    type: "",
-    status: "",
-  });
+  const [params, setParams] = usePaymentParams();
   const debouncedSearch = useDebounce(params.search, 500);
 
   const { data, isLoading } = useGetPaymentsList({
@@ -75,30 +69,7 @@ function Payments() {
       status: "",
     });
   };
-  const nav = useNavigate();
-  useEffect(() => {
-    const searchParams = new URLSearchParams(
-      params as unknown as URLSearchParams
-    );
-    nav(location.pathname + "?" + searchParams.toString());
-  }, [params]);
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const [search, type, status, page, limit] = [
-      searchParams.get("search"),
-      searchParams.get("type"),
-      searchParams.get("status"),
-      searchParams.get("page"),
-      searchParams.get("limit"),
-    ];
-    setParams({
-      search: search ?? "",
-      type: (type ?? "") as PaymentTypes,
-      status: (status ?? "") as PaymentStatus,
-      page: parseInt(page ?? "1"),
-      limit: parseInt(limit ?? "10"),
-    });
-  }, [location.search]);
+
   return (
     <Box>
       <Box p={1}>
