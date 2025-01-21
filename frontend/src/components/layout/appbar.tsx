@@ -2,14 +2,17 @@ type Props = {
   handleDrawerToggle: () => void;
 };
 import {
+  Box,
   IconButton,
   AppBar as MuiAppBar,
+  Switch,
   Toolbar,
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import TOMAN_LOGO from "@/assets/toman_logo.png";
+import SwitchTheme from "./SwitchTheme";
 
 export default function AppBar({ handleDrawerToggle }: Props) {
   return (
@@ -34,10 +37,19 @@ export default function AppBar({ handleDrawerToggle }: Props) {
         >
           <MenuIcon />
         </IconButton>
-        <img src={TOMAN_LOGO} height={44} />
-        <Typography variant="h6" noWrap component="div" mx={3}>
+        <img src={TOMAN_LOGO} height={38} />
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          mx={3}
+          sx={{
+            flexGrow: 1,
+          }}
+        >
           پنل مدیریت تومن
         </Typography>
+        <SwitchTheme />
       </Toolbar>
     </MuiAppBar>
   );

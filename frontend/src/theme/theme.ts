@@ -3,6 +3,9 @@ import { teal } from "@mui/material/colors";
 import { lightGreen } from "@mui/material/colors";
 // Create a theme instance.
 const lightTheme = createTheme({
+  colorSchemes: {
+    dark: true,
+  },
   direction: "rtl",
   palette: {
     primary: {
