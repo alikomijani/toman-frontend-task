@@ -30,11 +30,14 @@ export function useGetPaymentsList(params: PaymentParams) {
 export function useInfinitePaymentList(params: PaymentParams) {
   return useInfiniteQuery<PaginatedServerApi<Payment>, AxiosError>({
     queryKey: ["infinite-payments", params],
-    queryFn: getPaymentsList,
+    queryFn: ({ pageParam }) => getPaymentsList({ params: pageParam }),
     initialPageParam: {
-      page: 0,
+      page: 1,
       limit: 10,
     },
-    getNextPageParam: (lastPage) => lastPage.page + 1,
+    getNextPageParam: (lastPage) => ({
+      ...params,
+      page: lastPage.page + 1,
+    }),
   });
 }

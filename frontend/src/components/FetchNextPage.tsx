@@ -1,10 +1,18 @@
-import { Box, Typography } from "@mui/material";
-import { useEffect } from "react";
+import { Box, Button } from "@mui/material";
+import { ReactNode, useEffect } from "react";
 import { useIntersectionObserver } from "usehooks-ts";
 
-type FetchNextPageProps = { hasNextPage: boolean; fetch: () => void };
+type FetchNextPageProps = {
+  hasNextPage: boolean;
+  fetch: () => void;
+  children: ReactNode;
+};
 
-const FetchNextPage = ({ hasNextPage, fetch }: FetchNextPageProps) => {
+const FetchNextPage = ({
+  hasNextPage,
+  fetch,
+  children,
+}: FetchNextPageProps) => {
   const { isIntersecting, ref } = useIntersectionObserver({
     threshold: 0.5,
   });
@@ -16,9 +24,15 @@ const FetchNextPage = ({ hasNextPage, fetch }: FetchNextPageProps) => {
   return (
     <Box ref={ref}>
       {hasNextPage ? (
-        <Typography>درحال بارگزاری...</Typography>
+        children
       ) : (
-        <Typography>پایان محتوا</Typography>
+        <Button
+          fullWidth
+          variant="outlined"
+          onClick={() => window.scrollTo(0, 0)}
+        >
+          بازگشت به اول صفحه
+        </Button>
       )}
     </Box>
   );

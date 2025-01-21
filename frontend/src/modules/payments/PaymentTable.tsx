@@ -161,7 +161,7 @@ export default function PaymentTable() {
               sx={{
                 ":hover": {
                   a: {
-                    display: "block",
+                    visibility: "visible",
                   },
                 },
               }}
@@ -169,13 +169,19 @@ export default function PaymentTable() {
               <TableCell scope="row" component="th">
                 {payment.id}
               </TableCell>
-              <TableCell>{payment.value.toLocaleString("fa")}</TableCell>
-              <TableCell>{payment.description}</TableCell>
+              <TableCell>
+                <Typography>{payment.value.toLocaleString("fa")}</Typography>
+              </TableCell>
+              <TableCell>
+                <Typography variant="caption">{payment.description}</Typography>
+              </TableCell>
               <TableCell sx={{ pl: 7 }}>
-                {PAYMENT_TYPE_TRANSLATE_MAP[payment.type]}
+                <Typography variant="caption">
+                  {PAYMENT_TYPE_TRANSLATE_MAP[payment.type]}
+                </Typography>
               </TableCell>
               <TableCell sx={{ pl: 6 }}>
-                {STATUS_ICON_MAP[payment.status]}
+                <Typography>{STATUS_ICON_MAP[payment.status]}</Typography>
               </TableCell>
               <TableCell>
                 {new Date(payment.paid_at).toLocaleDateString("fa")}
@@ -188,7 +194,7 @@ export default function PaymentTable() {
                   color="info"
                   variant="outlined"
                   sx={{
-                    display: "none",
+                    visibility: "hidden",
                   }}
                 >
                   مشاهده تراکنش
