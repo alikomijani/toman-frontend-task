@@ -174,7 +174,7 @@ export default function PaymentTable() {
               </TableHead>
               <TableBody>
                 {isLoading && (
-                  <TableLoading rows={params.limit || 10} cells={7} />
+                  <TableLoading rows={+params.limit || 10} cells={7} />
                 )}
                 {data?.entities.map((payment) => (
                   <TableRow
@@ -225,8 +225,8 @@ export default function PaymentTable() {
               }
               labelRowsPerPage="تعداد تراکنش در هر صفحه"
               count={data?.total || 0}
-              rowsPerPage={params.limit || 10}
-              page={(params.page || 1) - 1} // mui use zero page number
+              rowsPerPage={+(params.limit || 10)}
+              page={+((params.page || 1) - 1)} // mui use zero page number
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
             />

@@ -9,6 +9,7 @@ export function useSearchParams<T extends PaginationParams>(
   const [params, setParams] = useState<T>(defaultValue);
   const location = useLocation();
   const nav = useNavigate();
+
   useEffect(() => {
     const searchParams = new URLSearchParams();
     Object.keys(params).forEach((key) => {
@@ -18,6 +19,7 @@ export function useSearchParams<T extends PaginationParams>(
     });
     nav(location.pathname + "?" + searchParams.toString());
   }, [params]);
+
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const paramsObject = paramsToObject(searchParams.entries());

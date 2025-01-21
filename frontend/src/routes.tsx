@@ -2,6 +2,9 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
 import withSuspenseLoading from "./components/withSuspenseLoading";
 
+const NotFoundPage = withSuspenseLoading(
+  React.lazy(() => import("./pages/404"))
+);
 const Layout = withSuspenseLoading(
   React.lazy(() => import("./components/layout"))
 );
@@ -22,6 +25,7 @@ export default function AppRoutes() {
           <Route path="/payments" element={<Payments />} />
           <Route path="/payments/:id" element={<PaymentView />} />
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

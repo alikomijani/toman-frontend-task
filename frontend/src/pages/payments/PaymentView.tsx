@@ -17,12 +17,16 @@ import {
   STATUS_ICON_MAP,
   STATUS_TYPE_TRANSLATE_MAP,
 } from "../../modules/constants";
+import PageError from "@/components/PageError";
 
 type Props = {};
 
 export default function PaymentView({}: Props) {
   const { id } = useParams<{ id: string }>();
-  const { data } = useGetPaymentById(id!);
+  const { data, isError, error } = useGetPaymentById(id!);
+  if (isError) {
+    return <PageError error={error} />;
+  }
   return (
     <Box>
       <Box p={1}>
@@ -38,7 +42,7 @@ export default function PaymentView({}: Props) {
           >
             تراکنش ها
           </MuiLink>
-          <Typography sx={{ color: "text.primary" }}>{data?.id}</Typography>
+          <Typography sx={{ color: "text.primary" }}>{id}</Typography>
         </Breadcrumbs>
       </Box>
       <Card

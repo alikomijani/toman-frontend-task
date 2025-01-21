@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from "axios";
+import { AxiosError, AxiosRequestConfig } from "axios";
 import api from "./base";
 import { PaginatedServerApi, Payment, PaymentParams } from "./types";
 import { useQuery } from "@tanstack/react-query";
@@ -20,7 +20,7 @@ export function useGetPaymentsList(params: PaymentParams) {
 }
 
 export function useGetPaymentById(id: string) {
-  return useQuery({
+  return useQuery<Payment, AxiosError>({
     queryKey: ["payments", id],
     queryFn: () => getPaymentById(id),
   });
