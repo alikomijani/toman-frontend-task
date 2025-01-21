@@ -1,23 +1,10 @@
 import { useGetPaymentById } from "@/api/payment.api";
-import {
-  Box,
-  Breadcrumbs,
-  Card,
-  CardContent,
-  CardHeader,
-  Skeleton,
-  Stack,
-  Typography,
-  Link as MuiLink,
-} from "@mui/material";
-import { ReactNode } from "react";
+import { Box, Breadcrumbs, Typography, Link as MuiLink } from "@mui/material";
+
 import { Link, useParams } from "react-router";
-import {
-  PAYMENT_TYPE_TRANSLATE_MAP,
-  STATUS_ICON_MAP,
-  STATUS_TYPE_TRANSLATE_MAP,
-} from "../../modules/payments/constants";
+
 import PageError from "@/components/PageError";
+import PaymentCard from "./payment-card";
 
 type Props = {};
 
@@ -45,61 +32,12 @@ export default function PaymentView({}: Props) {
           <Typography sx={{ color: "text.primary" }}>{id}</Typography>
         </Breadcrumbs>
       </Box>
-      <Card
+      <PaymentCard
+        payment={data}
         sx={{
           maxWidth: 500,
         }}
-      >
-        <CardContent>
-          <CardHeader title="مشخصات تراکنش" />
-          <Stack spacing={2}>
-            <LabelValueDisplay label="شماره تراکنش" value={data?.id} />
-            <LabelValueDisplay
-              label="مقدار"
-              value={data?.value.toLocaleString("fa")}
-            />
-            <LabelValueDisplay label="توضیحات" value={data?.description} />
-            <LabelValueDisplay
-              label="نوع پرداخت"
-              value={
-                data?.type ? PAYMENT_TYPE_TRANSLATE_MAP[data.type] : undefined
-              }
-            />
-            <LabelValueDisplay
-              label="وضعیت"
-              value={
-                data?.status ? (
-                  <Stack direction="row" alignItems="center" gap={1}>
-                    {STATUS_TYPE_TRANSLATE_MAP[data.status]}{" "}
-                    {STATUS_ICON_MAP[data.status]}
-                  </Stack>
-                ) : undefined
-              }
-            />
-            <LabelValueDisplay
-              label="تاریخ تراکنش"
-              value={
-                data?.paid_at
-                  ? new Date(data.paid_at).toLocaleString("fa")
-                  : undefined
-              }
-            />
-          </Stack>
-        </CardContent>
-      </Card>
+      />
     </Box>
   );
 }
-
-const LabelValueDisplay = ({
-  label,
-  value,
-}: {
-  label: string;
-  value: ReactNode | undefined;
-}) => (
-  <Stack direction="row" justifyContent={"space-between"} alignItems={"center"}>
-    <Typography>{label}:</Typography>
-    <Typography>{value ? value : <Skeleton width={50} />}</Typography>
-  </Stack>
-);

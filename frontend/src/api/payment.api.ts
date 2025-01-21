@@ -13,7 +13,7 @@ async function getPaymentById(id: string, config?: AxiosRequestConfig) {
   return res.data;
 }
 export function useGetPaymentsList(params: PaymentParams) {
-  return useQuery({
+  return useQuery<PaginatedServerApi<Payment>, AxiosError>({
     queryKey: ["payments", params],
     queryFn: () => getPaymentsList({ params }),
   });

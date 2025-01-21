@@ -36,6 +36,8 @@ import {
 } from "@/modules/payments/constants";
 import { PaymentParams, PaymentStatus, PaymentTypes } from "@/api/types";
 import { TableLoading } from "@/components/TableLoading";
+import PageError from "@/components/PageError";
+import { AxiosError } from "axios";
 
 const DEFAULT_PARAMS: PaymentParams = {
   limit: 10,
@@ -49,7 +51,8 @@ export default function PaymentTable() {
   const [params, setParams] = useSearchParams(DEFAULT_PARAMS);
   const debouncedParams = useDebounce(params, 500);
 
-  const { data, isLoading } = useGetPaymentsList(debouncedParams);
+  const { data, isLoading, error, isError } =
+    useGetPaymentsList(debouncedParams);
 
   function handleChangePage(_: unknown, page: number) {
     setParams((prev) => ({ ...prev, page: page + 1 })); // mui use zero index page number
@@ -69,7 +72,9 @@ export default function PaymentTable() {
   const clearFilter = () => {
     setParams(DEFAULT_PARAMS);
   };
-
+  if (isError) {
+    return <PageError error={error} />;
+  }
   return (
     <Box>
       <Box p={1}>
