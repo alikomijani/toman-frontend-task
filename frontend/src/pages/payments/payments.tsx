@@ -22,7 +22,7 @@ function Payments() {
   const isMobile = useIsMobile();
   return (
     <Box>
-      <Box p={1}>
+      <Box p={1} pt={0}>
         <Breadcrumbs>
           <MuiLink component={Link} underline="hover" color="inherit" to="/">
             داشبورد
@@ -30,8 +30,7 @@ function Payments() {
           <Typography sx={{ color: "text.primary" }}>تراکنش ها</Typography>
         </Breadcrumbs>
       </Box>
-      <Card>
-        <CardHeader title="مدیریت تراکنش‌ها" sx={{ pb: { md: 0 } }} />
+      <Card sx={{ border: "none" }} variant="outlined">
         <CardContent sx={{ p: { xs: 0, md: 2 } }}>
           {isMobile ? <PaymentInfiniteView /> : <PaymentTable />}
         </CardContent>

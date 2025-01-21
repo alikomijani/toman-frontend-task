@@ -29,7 +29,7 @@ export function useGetPaymentsList(params: PaymentParams) {
 
 export function useInfinitePaymentList(params: PaymentParams) {
   return useInfiniteQuery<PaginatedServerApi<Payment>, AxiosError>({
-    queryKey: ["payments", params],
+    queryKey: ["infinite-payments", params],
     queryFn: getPaymentsList,
     initialPageParam: {
       page: 0,

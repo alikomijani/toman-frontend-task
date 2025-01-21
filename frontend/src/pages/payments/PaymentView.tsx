@@ -17,7 +17,11 @@ export default function PaymentView({}: Props) {
   return (
     <Box>
       <Box p={1}>
-        <Breadcrumbs>
+        <Breadcrumbs
+          sx={{
+            fontSize: 14,
+          }}
+        >
           <MuiLink component={Link} underline="hover" color="inherit" to="/">
             داشبورد
           </MuiLink>
@@ -29,13 +33,15 @@ export default function PaymentView({}: Props) {
           >
             تراکنش ها
           </MuiLink>
-          <Typography sx={{ color: "text.primary" }}>{id}</Typography>
+          <Typography variant="body2" sx={{ color: "text.primary" }}>
+            {id}
+          </Typography>
         </Breadcrumbs>
       </Box>
       <PaymentCard
         payment={data}
         sx={{
-          maxWidth: 500,
+          maxWidth: 400,
         }}
       />
     </Box>

@@ -15,6 +15,8 @@ import {
   TableBody,
   Button,
   TablePagination,
+  Box,
+  Typography,
 } from "@mui/material";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import SearchIcon from "@mui/icons-material/Search";
@@ -60,21 +62,28 @@ export default function PaymentTable() {
     return <PageError error={error} />;
   }
   return (
-    <TableContainer>
-      <Toolbar>
+    <TableContainer
+      sx={{
+        border: ({ palette }) => `1px solid ${palette.divider}`,
+        borderRadius: 1,
+      }}
+    >
+      <Stack direction="row" p={2}>
+        <Typography variant="h6">تراکنش ها</Typography>
         <TextField
           size="small"
           name="search"
           slotProps={{
             input: {
-              startAdornment: <SearchIcon />,
+              startAdornment: <SearchIcon color="action" />,
             },
           }}
           placeholder="جست‌وجو"
           value={params.search}
           onChange={handleSearchParams}
           sx={{
-            width: 400,
+            mx: 2,
+            width: 300,
           }}
         />
         {hasFilter && (
@@ -84,7 +93,7 @@ export default function PaymentTable() {
             </IconButton>
           </Tooltip>
         )}
-      </Toolbar>
+      </Stack>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -162,8 +171,12 @@ export default function PaymentTable() {
               </TableCell>
               <TableCell>{payment.value.toLocaleString("fa")}</TableCell>
               <TableCell>{payment.description}</TableCell>
-              <TableCell>{PAYMENT_TYPE_TRANSLATE_MAP[payment.type]}</TableCell>
-              <TableCell>{STATUS_ICON_MAP[payment.status]}</TableCell>
+              <TableCell sx={{ pl: 7 }}>
+                {PAYMENT_TYPE_TRANSLATE_MAP[payment.type]}
+              </TableCell>
+              <TableCell sx={{ pl: 6 }}>
+                {STATUS_ICON_MAP[payment.status]}
+              </TableCell>
               <TableCell>
                 {new Date(payment.paid_at).toLocaleDateString("fa")}
               </TableCell>
@@ -173,6 +186,7 @@ export default function PaymentTable() {
                   to={"/payments/" + payment.id}
                   size="small"
                   color="info"
+                  variant="outlined"
                   sx={{
                     display: "none",
                   }}

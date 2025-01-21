@@ -8,17 +8,17 @@ import { PaymentStatus } from "@/api/types";
 export const STATUS_ICON_MAP: Record<PaymentStatus, ReactElement> = {
   failed: (
     <Tooltip title="خطا">
-      <ErrorIcon color="error" />
+      <ErrorIcon color="error" fontSize="small" />
     </Tooltip>
   ),
   pending: (
     <Tooltip title="در حال انجام">
-      <AutorenewIcon color="info" />
+      <AutorenewIcon color="info" fontSize="small" />
     </Tooltip>
   ),
   success: (
     <Tooltip title="موفق">
-      <CheckCircleIcon color="success" />
+      <CheckCircleIcon color="success" fontSize="small" />
     </Tooltip>
   ),
 } as const;

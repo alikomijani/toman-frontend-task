@@ -16,11 +16,7 @@ export default function PaymentInfiniteView({}: Props) {
       {data?.pages.map((page) =>
         page.entities.map((payment) => (
           <Grid2 size={{ xs: 12, md: 6 }} key={payment.id}>
-            <PaymentCard
-              payment={payment}
-              elevation={0}
-              sx={{ borderBottom: 1 }}
-            />
+            <PaymentCard payment={payment} />
           </Grid2>
         ))
       )}
