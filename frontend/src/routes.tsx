@@ -1,15 +1,17 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
-import { WithSuspense } from "./components/WithSuspense";
+import withSuspenseLoading from "./components/withSuspenseLoading";
 
-const Layout = WithSuspense(React.lazy(() => import("./components/layout")));
-const Payments = WithSuspense(
+const Layout = withSuspenseLoading(
+  React.lazy(() => import("./components/layout"))
+);
+const Payments = withSuspenseLoading(
   React.lazy(() => import("./pages/payments/payments"))
 );
-const PaymentView = WithSuspense(
+const PaymentView = withSuspenseLoading(
   React.lazy(() => import("./pages/payments/PaymentView"))
 );
-const Home = WithSuspense(React.lazy(() => import("./pages/Home")));
+const Home = withSuspenseLoading(React.lazy(() => import("./pages/Home")));
 
 export default function AppRoutes() {
   return (

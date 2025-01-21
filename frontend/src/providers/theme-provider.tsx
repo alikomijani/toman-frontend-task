@@ -1,10 +1,10 @@
 import { PropsWithChildren } from "react";
 import { CssBaseline, ThemeProvider as MuiThemeProvider } from "@mui/material";
-import theme from "./theme";
 import rtlPlugin from "stylis-plugin-rtl";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { prefixer } from "stylis";
+import theme from "@/theme/theme";
 
 const rtlCache = createCache({
   key: "muirtl",

@@ -1,26 +1,18 @@
-import { lazy, Suspense } from "react";
-import ThemeProvider from "./theme/theme-provider";
-import "@fontsource/vazirmatn/arabic-300.css";
-import "@fontsource/vazirmatn/arabic-400.css";
-import "@fontsource/vazirmatn/arabic-500.css";
-import "@fontsource/vazirmatn/arabic-700.css";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { lazy } from "react";
+import withSuspense from "./components/withSuspense";
+const ThemeProvider = withSuspense(
+  lazy(() => import("./providers/theme-provider")),
+  <>...Loading</>
+);
+const QueryProvider = lazy(() => import("./providers/query-provider"));
 const AppRoutes = lazy(() => import("./routes"));
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: Infinity,
-    },
-  },
-});
+
 function App() {
   return (
     <ThemeProvider>
-      <QueryClientProvider client={queryClient}>
-        <Suspense fallback="درحال بارگزاری">
-          <AppRoutes />
-        </Suspense>
-      </QueryClientProvider>
+      <QueryProvider>
+        <AppRoutes />
+      </QueryProvider>
     </ThemeProvider>
   );
 }

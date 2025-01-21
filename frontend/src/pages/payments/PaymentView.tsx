@@ -16,7 +16,7 @@ import {
   PAYMENT_TYPE_TRANSLATE_MAP,
   STATUS_ICON_MAP,
   STATUS_TYPE_TRANSLATE_MAP,
-} from "./constants";
+} from "../../modules/constants";
 
 type Props = {};
 
