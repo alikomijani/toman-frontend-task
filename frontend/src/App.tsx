@@ -1,5 +1,7 @@
 import { lazy } from "react";
 import withSuspense from "./components/withSuspense";
+import { ErrorBoundary } from "react-error-boundary";
+
 const ThemeProvider = withSuspense(
   lazy(() => import("./providers/theme-provider")),
   <>...Loading</>
@@ -9,11 +11,13 @@ const AppRoutes = lazy(() => import("./routes"));
 
 function App() {
   return (
-    <ThemeProvider>
-      <QueryProvider>
-        <AppRoutes />
-      </QueryProvider>
-    </ThemeProvider>
+    <ErrorBoundary fallback="Something went wrong">
+      <ThemeProvider>
+        <QueryProvider>
+          <AppRoutes />
+        </QueryProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
 
