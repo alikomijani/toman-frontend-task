@@ -2,6 +2,7 @@ import { AxiosError, AxiosRequestConfig } from "axios";
 import api from "./base";
 import { PaginatedServerApi, Payment, PaymentParams } from "./types";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { PAYMENT_DEFAULT_PARAMS } from "@/modules/payments/constants";
 
 async function getPaymentsList(config?: AxiosRequestConfig) {
   const res = await api.get<PaginatedServerApi<Payment>>("/payments", config);
@@ -32,12 +33,16 @@ export function useInfinitePaymentList(params: PaymentParams) {
     queryKey: ["infinite-payments", params],
     queryFn: ({ pageParam }) => getPaymentsList({ params: pageParam }),
     initialPageParam: {
-      page: 1,
-      limit: 10,
-    },
-    getNextPageParam: (lastPage) => ({
       ...params,
-      page: lastPage.page + 1,
-    }),
+    },
+    getNextPageParam: (lastPage) => {
+      if (lastPage.entities.length < lastPage.limit) {
+        return undefined;
+      }
+      return {
+        ...params,
+        page: lastPage.page + 1,
+      };
+    },
   });
 }

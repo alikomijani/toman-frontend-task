@@ -22,9 +22,21 @@ const ServerErrorPage = () => {
         padding: 5,
       }}
     >
-      <Grid2 container>
+      <Grid2 container spacing={2}>
+        <Grid2 size={{ xs: 12, md: 6 }}>
+          <Box
+            component="img"
+            src={image}
+            alt="404 Illustration"
+            sx={{
+              width: "100%",
+              maxWidth: "600px",
+              height: "auto",
+            }}
+          />
+        </Grid2>
         <Grid2
-          size={6}
+          size={{ xs: 12, md: 6 }}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -65,18 +77,6 @@ const ServerErrorPage = () => {
               تلاش دوباره
             </Button>
           </Stack>
-        </Grid2>
-        <Grid2 size={6}>
-          <Box
-            component="img"
-            src={image}
-            alt="404 Illustration"
-            sx={{
-              width: "100%",
-              maxWidth: "600px",
-              height: "auto",
-            }}
-          />
         </Grid2>
       </Grid2>
     </Container>

@@ -13,7 +13,7 @@ const PAYMENT_TYPE_TRANSLATE_MAP: Record<PaymentTypes, string> = {
   transportation: "هزینه جابه‌جایی",
 } as const;
 
-const DEFAULT_PARAMS: PaymentParams = {
+const PAYMENT_DEFAULT_PARAMS: PaymentParams = {
   limit: 10,
   page: 1,
   search: "",
@@ -24,5 +24,5 @@ const DEFAULT_PARAMS: PaymentParams = {
 export {
   PAYMENT_TYPE_TRANSLATE_MAP,
   STATUS_TYPE_TRANSLATE_MAP,
-  DEFAULT_PARAMS,
+  PAYMENT_DEFAULT_PARAMS,
 };

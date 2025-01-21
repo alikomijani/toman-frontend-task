@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { ReactNode, useEffect } from "react";
 import { useIntersectionObserver } from "usehooks-ts";
 
@@ -21,20 +21,6 @@ const FetchNextPage = ({
       fetch();
     }
   }, [isIntersecting]);
-  return (
-    <Box ref={ref}>
-      {hasNextPage ? (
-        children
-      ) : (
-        <Button
-          fullWidth
-          variant="outlined"
-          onClick={() => window.scrollTo(0, 0)}
-        >
-          بازگشت به اول صفحه
-        </Button>
-      )}
-    </Box>
-  );
+  return <Box ref={ref}>{hasNextPage && children}</Box>;
 };
 export default FetchNextPage;

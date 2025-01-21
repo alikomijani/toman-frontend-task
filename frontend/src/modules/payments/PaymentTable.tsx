@@ -3,7 +3,6 @@ import { useSearchParams } from "@/hooks/useSearchParams";
 import {
   TableContainer,
   TextField,
-  Toolbar,
   Table,
   Tooltip,
   IconButton,
@@ -15,7 +14,6 @@ import {
   TableBody,
   Button,
   TablePagination,
-  Box,
   Typography,
 } from "@mui/material";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
@@ -24,7 +22,7 @@ import { ChangeEvent } from "react";
 import { Link } from "react-router";
 import FilterIcon from "@/components/FilterIcon";
 import {
-  DEFAULT_PARAMS,
+  PAYMENT_DEFAULT_PARAMS,
   PAYMENT_TYPE_TRANSLATE_MAP,
   STATUS_TYPE_TRANSLATE_MAP,
 } from "@/modules/payments/constants";
@@ -34,8 +32,9 @@ import PageError from "@/components/PageError";
 import { STATUS_ICON_MAP } from "./StatusIconMap";
 
 export default function PaymentTable() {
-  const { params, setParams, debouncedParams } =
-    useSearchParams(DEFAULT_PARAMS);
+  const { params, setParams, debouncedParams } = useSearchParams(
+    PAYMENT_DEFAULT_PARAMS
+  );
 
   const { data, isLoading, error, isError } =
     useGetPaymentsList(debouncedParams);
@@ -56,7 +55,7 @@ export default function PaymentTable() {
   };
   const hasFilter = params.search || params.type || params.status;
   const clearFilter = () => {
-    setParams(DEFAULT_PARAMS);
+    setParams(PAYMENT_DEFAULT_PARAMS);
   };
   if (isError) {
     return <PageError error={error} />;
@@ -68,7 +67,7 @@ export default function PaymentTable() {
         borderRadius: 1,
       }}
     >
-      <Stack direction="row" p={2}>
+      <Stack direction="row" p={2} alignItems="center">
         <Typography variant="h6">تراکنش ها</Typography>
         <TextField
           size="small"
