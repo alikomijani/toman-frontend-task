@@ -2,11 +2,12 @@ import { PaginationParams } from "@/api/types";
 import { paramsToObject } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
+import { useDebounceValue } from "usehooks-ts";
 
-export function useSearchParams<T extends PaginationParams>(
-  defaultValue: T
-): [T, React.Dispatch<React.SetStateAction<T>>] {
+export function useSearchParams<T extends PaginationParams>(defaultValue: T) {
   const [params, setParams] = useState<T>(defaultValue);
+  const [debouncedParams] = useDebounceValue(params, 500);
+
   const location = useLocation();
   const nav = useNavigate();
 
@@ -28,5 +29,5 @@ export function useSearchParams<T extends PaginationParams>(
       ...paramsObject,
     });
   }, [location.search]);
-  return [params, setParams];
+  return { params, setParams, debouncedParams };
 }

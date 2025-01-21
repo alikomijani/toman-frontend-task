@@ -2,9 +2,9 @@ import { Payment } from "@/api/types";
 import LabelValueDisplay from "@/components/LabelValueDisplay";
 import {
   PAYMENT_TYPE_TRANSLATE_MAP,
-  STATUS_ICON_MAP,
   STATUS_TYPE_TRANSLATE_MAP,
 } from "@/modules/payments/constants";
+import { STATUS_ICON_MAP } from "@/modules/payments/StatusIconMap";
 import { Card, CardContent, CardHeader, CardProps, Stack } from "@mui/material";
 
 interface PaymentCardProps extends CardProps {

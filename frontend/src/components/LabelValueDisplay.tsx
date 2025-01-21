@@ -10,7 +10,9 @@ const LabelValueDisplay = ({
 }) => (
   <Stack direction="row" justifyContent={"space-between"} alignItems={"center"}>
     <Typography>{label}:</Typography>
-    <Typography>{value ? value : <Skeleton width={50} />}</Typography>
+    <Typography component={"div"}>
+      {value ? value : <Skeleton width={50} />}
+    </Typography>
   </Stack>
 );
 export default LabelValueDisplay;

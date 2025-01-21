@@ -1,7 +1,7 @@
 import { AxiosError, AxiosRequestConfig } from "axios";
 import api from "./base";
 import { PaginatedServerApi, Payment, PaymentParams } from "./types";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 async function getPaymentsList(config?: AxiosRequestConfig) {
   const res = await api.get<PaginatedServerApi<Payment>>("/payments", config);
@@ -12,6 +12,14 @@ async function getPaymentById(id: string, config?: AxiosRequestConfig) {
   const res = await api.get<Payment>("/payments/" + id, config);
   return res.data;
 }
+
+export function useGetPaymentById(id: string) {
+  return useQuery<Payment, AxiosError>({
+    queryKey: ["payments", id],
+    queryFn: () => getPaymentById(id),
+  });
+}
+
 export function useGetPaymentsList(params: PaymentParams) {
   return useQuery<PaginatedServerApi<Payment>, AxiosError>({
     queryKey: ["payments", params],
@@ -19,9 +27,14 @@ export function useGetPaymentsList(params: PaymentParams) {
   });
 }
 
-export function useGetPaymentById(id: string) {
-  return useQuery<Payment, AxiosError>({
-    queryKey: ["payments", id],
-    queryFn: () => getPaymentById(id),
+export function useInfinitePaymentList(params: PaymentParams) {
+  return useInfiniteQuery<PaginatedServerApi<Payment>, AxiosError>({
+    queryKey: ["payments", params],
+    queryFn: getPaymentsList,
+    initialPageParam: {
+      page: 0,
+      limit: 10,
+    },
+    getNextPageParam: (lastPage) => lastPage.page + 1,
   });
 }

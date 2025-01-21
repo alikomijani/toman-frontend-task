@@ -1,27 +1,5 @@
-import { ReactElement } from "react";
-import ErrorIcon from "@mui/icons-material/Error";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import AutorenewIcon from "@mui/icons-material/Autorenew";
-import { PaymentStatus, PaymentTypes } from "@/api/types";
-import { Tooltip } from "@mui/material";
+import type { PaymentParams, PaymentStatus, PaymentTypes } from "@/api/types";
 
-const STATUS_ICON_MAP: Record<PaymentStatus, ReactElement> = {
-  failed: (
-    <Tooltip title="خطا">
-      <ErrorIcon color="error" />
-    </Tooltip>
-  ),
-  pending: (
-    <Tooltip title="در حال انجام">
-      <AutorenewIcon color="info" />
-    </Tooltip>
-  ),
-  success: (
-    <Tooltip title="موفق">
-      <CheckCircleIcon color="success" />
-    </Tooltip>
-  ),
-} as const;
 const STATUS_TYPE_TRANSLATE_MAP: Record<PaymentStatus, string> = {
   failed: "خطا",
   success: "موفق",
@@ -35,8 +13,16 @@ const PAYMENT_TYPE_TRANSLATE_MAP: Record<PaymentTypes, string> = {
   transportation: "هزینه جابه‌جایی",
 } as const;
 
+const DEFAULT_PARAMS: PaymentParams = {
+  limit: 10,
+  page: 1,
+  search: "",
+  status: "",
+  type: "",
+};
+
 export {
-  STATUS_ICON_MAP,
   PAYMENT_TYPE_TRANSLATE_MAP,
   STATUS_TYPE_TRANSLATE_MAP,
+  DEFAULT_PARAMS,
 };
