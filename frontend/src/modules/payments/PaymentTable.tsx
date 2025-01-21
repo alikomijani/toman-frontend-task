@@ -33,7 +33,7 @@ import {
   PAYMENT_TYPE_TRANSLATE_MAP,
   STATUS_ICON_MAP,
   STATUS_TYPE_TRANSLATE_MAP,
-} from "@/modules/constants";
+} from "@/modules/payments/constants";
 import { PaymentParams, PaymentStatus, PaymentTypes } from "@/api/types";
 import { TableLoading } from "@/components/TableLoading";
 

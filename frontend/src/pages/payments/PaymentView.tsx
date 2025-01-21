@@ -16,7 +16,7 @@ import {
   PAYMENT_TYPE_TRANSLATE_MAP,
   STATUS_ICON_MAP,
   STATUS_TYPE_TRANSLATE_MAP,
-} from "../../modules/constants";
+} from "../../modules/payments/constants";
 import PageError from "@/components/PageError";
 
 type Props = {};

@@ -1,4 +1,4 @@
-import PaymentTable from "@/modules/PaymentTable";
+import PaymentTable from "@/modules/payments/PaymentTable";
 function Payments() {
   return <PaymentTable />;
 }
