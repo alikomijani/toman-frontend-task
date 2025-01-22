@@ -2,7 +2,6 @@ import { AxiosError, AxiosRequestConfig } from "axios";
 import api from "./base";
 import { PaginatedServerApi, Payment, PaymentParams } from "./types";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { PAYMENT_DEFAULT_PARAMS } from "@/modules/payments/constants";
 
 async function getPaymentsList(config?: AxiosRequestConfig) {
   const res = await api.get<PaginatedServerApi<Payment>>("/payments", config);
