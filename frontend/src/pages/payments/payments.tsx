@@ -29,7 +29,7 @@ function Payments() {
           <Typography sx={{ color: "text.primary" }}>تراکنش ها</Typography>
         </Breadcrumbs>
       </Box>
-      <Card sx={{ border: "none" }} variant="outlined">
+      <Card sx={{ border: "none", overflow: "unset" }} variant="outlined">
         <CardContent sx={{ p: { xs: 0, md: 2 } }}>
           {isMobile ? <PaymentInfiniteView /> : <PaymentTable />}
         </CardContent>
