@@ -2,10 +2,8 @@ type Props = {
   handleDrawerToggle: () => void;
 };
 import {
-  Box,
   IconButton,
   AppBar as MuiAppBar,
-  Switch,
   Toolbar,
   Typography,
 } from "@mui/material";

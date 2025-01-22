@@ -14,14 +14,23 @@ import FetchNextPage from "@/components/FetchNextPage";
 import { useNavigate } from "react-router";
 import MobileFilter from "./MobileFilter";
 import NotFou from "@assets/404-error.jpg";
+import withSuspenseLoading from "@/components/withSuspenseLoading";
+import { lazy } from "react";
+
+const PageError = withSuspenseLoading(
+  lazy(() => import("@/components/PageError"))
+);
+
 export default function PaymentInfiniteView() {
   const { debouncedParams, setParams } = useSearchParams(
     PAYMENT_DEFAULT_PARAMS
   );
   const navigate = useNavigate();
-  const { data, hasNextPage, fetchNextPage, isLoading } =
+  const { data, hasNextPage, fetchNextPage, isLoading, error, isError } =
     useInfinitePaymentList(debouncedParams);
-
+  if (isError) {
+    return <PageError error={error} />;
+  }
   return (
     <Box>
       <MobileFilter />

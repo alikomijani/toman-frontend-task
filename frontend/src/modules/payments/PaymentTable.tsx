@@ -13,12 +13,11 @@ import {
   MenuItem,
   TableBody,
   Button,
-  TablePagination,
   Typography,
 } from "@mui/material";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import SearchIcon from "@mui/icons-material/Search";
-import { ChangeEvent } from "react";
+import { ChangeEvent, lazy } from "react";
 import { Link } from "react-router";
 import FilterIcon from "@/components/FilterIcon";
 import {
@@ -28,9 +27,13 @@ import {
 } from "@/modules/payments/constants";
 import { PaymentStatus, PaymentTypes } from "@/api/types";
 import { TableLoading } from "@/components/TableLoading";
-import PageError from "@/components/PageError";
 import { STATUS_ICON_MAP } from "./StatusIconMap";
+import withSuspenseLoading from "@/components/withSuspenseLoading";
+import TablePagination from "@/components/TablePagination";
 
+const PageError = withSuspenseLoading(
+  lazy(() => import("@/components/PageError"))
+);
 export default function PaymentTable() {
   const { params, setParams, debouncedParams } = useSearchParams(
     PAYMENT_DEFAULT_PARAMS
@@ -39,13 +42,6 @@ export default function PaymentTable() {
   const { data, isLoading, error, isError } =
     useGetPaymentsList(debouncedParams);
 
-  function handleChangePage(_: unknown, page: number) {
-    setParams((prev) => ({ ...prev, page: page + 1 })); // mui use zero index page number
-  }
-  const handleChangeRowsPerPage = (e: ChangeEvent<HTMLInputElement>) => {
-    const limit = parseInt(e.target.value);
-    setParams((prev) => ({ ...prev, page: 1, limit }));
-  };
   const handleSearchParams = (e: ChangeEvent<HTMLInputElement>) => {
     setParams((prev) => ({
       ...prev,
@@ -203,19 +199,7 @@ export default function PaymentTable() {
           ))}
         </TableBody>
       </Table>
-      <TablePagination
-        rowsPerPageOptions={[10, 15, 20]}
-        component="div"
-        labelDisplayedRows={({ from, to, count }) =>
-          `نمایش ${from} - ${to} از ${count}`
-        }
-        labelRowsPerPage="تعداد تراکنش در هر صفحه"
-        count={data?.total || 0}
-        rowsPerPage={+(params.limit || 10)}
-        page={+((params.page || 1) - 1)} // mui use zero page number
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      <TablePagination count={data?.total} />
     </TableContainer>
   );
 }

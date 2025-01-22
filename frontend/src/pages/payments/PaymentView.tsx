@@ -1,10 +1,13 @@
 import { useGetPaymentById } from "@/api/payment.api";
 import { Box, Breadcrumbs, Typography, Link as MuiLink } from "@mui/material";
-
 import { Link, useParams } from "react-router";
-
-import PageError from "@/components/PageError";
 import PaymentCard from "./payment-card";
+import withSuspenseLoading from "@/components/withSuspenseLoading";
+import { lazy } from "react";
+
+const PageError = withSuspenseLoading(
+  lazy(() => import("@/components/PageError"))
+);
 
 type Props = {};
 
@@ -38,12 +41,21 @@ export default function PaymentView({}: Props) {
           </Typography>
         </Breadcrumbs>
       </Box>
-      <PaymentCard
-        payment={data}
-        sx={{
-          maxWidth: 400,
-        }}
-      />
+      {data ? (
+        <PaymentCard
+          payment={data}
+          sx={{
+            maxWidth: 400,
+          }}
+        />
+      ) : (
+        <PaymentCard
+          isLoading
+          sx={{
+            maxWidth: 400,
+          }}
+        />
+      )}
     </Box>
   );
 }

@@ -59,12 +59,12 @@ export default function SwitchTheme() {
   const { mode, setMode } = useColorScheme();
   return (
     <MaterialUISwitch
-      checked={mode === "light"}
+      checked={mode === "dark"}
       onChange={(e) => {
         if (e.target.checked) {
-          setMode("light");
-        } else {
           setMode("dark");
+        } else {
+          setMode("light");
         }
       }}
     />

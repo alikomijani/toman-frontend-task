@@ -11,7 +11,7 @@ export const TableLoading = ({ rows, cells }: TableLoadingProps) => {
         <TableRow key={i}>
           {new Array(cells).fill(0).map((_, j) => (
             <TableCell key={`${i}-${j}`}>
-              <Skeleton />
+              <Skeleton height={30} />
             </TableCell>
           ))}
         </TableRow>
