@@ -42,7 +42,12 @@ const MobileFilter = () => {
       zIndex={10}
     >
       <Box display="flex" alignItems="center" gap={1} p={1}>
-        <FormLabel onClick={handleCollapse}>
+        <FormLabel
+          onClick={handleCollapse}
+          sx={{
+            cursor: "pointer",
+          }}
+        >
           <SvgIcon>
             <FilterAltIcon />
           </SvgIcon>
