@@ -1,9 +1,10 @@
-import { Suspense, ComponentType, ReactNode, PropsWithChildren } from "react";
+import { Suspense, ComponentType, ReactNode, FC } from "react";
 
-export default function withSuspense<
-  T extends JSX.IntrinsicAttributes & PropsWithChildren
->(Component: ComponentType<T>, fallback?: ReactNode) {
-  return (props: T) => (
+export default function withSuspense<P extends object>(
+  Component: ComponentType<P>,
+  fallback?: ReactNode
+): FC<P> {
+  return (props: P) => (
     <Suspense fallback={fallback}>
       <Component {...props} />
     </Suspense>
