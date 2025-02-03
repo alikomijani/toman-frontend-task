@@ -10,6 +10,7 @@ import {
   Typography,
   Link as MuiLink,
 } from "@mui/material";
+import Analytics from "@/modules/analitics/Analytics";
 const PaymentInfiniteView = withSuspenseLoading(
   lazy(() => import("@/modules/payments/PaymentInfiniteView"))
 );
@@ -31,6 +32,9 @@ function Payments() {
       </Box>
       <Card sx={{ border: "none", overflow: "unset" }} variant="outlined">
         <CardContent sx={{ p: { xs: 0, md: 2 } }}>
+          <Box my={2}>
+            <Analytics />
+          </Box>
           {isMobile ? <PaymentInfiniteView /> : <PaymentTable />}
         </CardContent>
       </Card>
